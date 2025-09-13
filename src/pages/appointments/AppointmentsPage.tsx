@@ -17,15 +17,17 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Badge } from '@/components/ui/badge'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
-import { Calendar, Clock, MapPin, Phone, Plus, User, CreditCard, CheckCircle, XCircle, AlertCircle } from 'lucide-react'
+import { Calendar, Clock, MapPin, Phone, Plus, User, CreditCard, CheckCircle, XCircle, AlertCircle, FileText } from 'lucide-react'
 import { format } from 'date-fns'
 import { fr } from 'date-fns/locale'
 import BookAppointmentForm from './BookAppointmentForm'
 
 export default function AppointmentsPage() {
-  const { state } = useAppContext()
+  const { state, dispatch } = useAppContext()
   const [selectedTab, setSelectedTab] = useState('upcoming')
   const [isBookingOpen, setIsBookingOpen] = useState(false)
+  const user = state.user
+  const isDoctor = user?.role === 'doctor'
 
   const getStatusBadge = (status: string) => {
     switch (status) {
@@ -63,43 +65,69 @@ export default function AppointmentsPage() {
     }).format(price)
   }
 
-  const upcomingAppointments = state.appointments.filter(apt => 
+  // Filter appointments based on user role
+  const allUserAppointments = isDoctor
+    ? state.appointments.filter(apt => apt.doctorId === user?.id)
+    : state.appointments
+
+  const upcomingAppointments = allUserAppointments.filter(apt =>
     apt.status !== 'completed' && apt.status !== 'cancelled' && new Date(apt.date) >= new Date()
   )
 
-  const pastAppointments = state.appointments.filter(apt => 
+  const pastAppointments = allUserAppointments.filter(apt =>
     apt.status === 'completed' || new Date(apt.date) < new Date()
   )
 
-  const cancelledAppointments = state.appointments.filter(apt => apt.status === 'cancelled')
+  const cancelledAppointments = allUserAppointments.filter(apt => apt.status === 'cancelled')
+
+  const sendMedicalReport = (appointment: any) => {
+    const newRecord: any = {
+      id: `record-${Date.now()}`,
+      date: new Date().toISOString().split('T')[0],
+      type: 'consultation',
+      doctorName: user?.firstName + ' ' + user?.lastName,
+      title: `Rapport de consultation - ${appointment.date}`,
+      description: `Rapport médical pour la consultation du ${appointment.date} à ${appointment.time}.`,
+      files: []
+    }
+    dispatch({ type: 'ADD_MEDICAL_RECORD', payload: newRecord })
+    alert('Rapport médical envoyé avec succès!')
+  }
 
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">Mes Rendez-vous</h1>
+          <h1 className="text-3xl font-bold text-gray-900">
+            {isDoctor ? 'Rendez-vous des Patients' : 'Mes Rendez-vous'}
+          </h1>
           <p className="text-gray-600 mt-2">
-            Gérez vos consultations médicales et prenez de nouveaux rendez-vous
+            {isDoctor
+              ? 'Gérez les consultations de vos patients et envoyez des rapports médicaux'
+              : 'Gérez vos consultations médicales et prenez de nouveaux rendez-vous'
+            }
           </p>
         </div>
-        
-        <Dialog open={isBookingOpen} onOpenChange={setIsBookingOpen}>
-          <DialogTrigger asChild>
-            <Button size="lg" className="bg-green-600 hover:bg-green-700">
-              <Plus className="w-4 h-4 mr-2" />
-              Nouveau rendez-vous
-            </Button>
-          </DialogTrigger>
-          <DialogContent className="max-w-2xl">
-            <DialogHeader>
-              <DialogTitle>Prendre un nouveau rendez-vous</DialogTitle>
-              <DialogDescription>
-                Choisissez un professionnel de santé et planifiez votre consultation
-              </DialogDescription>
-            </DialogHeader>
-            <BookAppointmentForm onClose={() => setIsBookingOpen(false)} />
-          </DialogContent>
-        </Dialog>
+
+        {!isDoctor && (
+          <Dialog open={isBookingOpen} onOpenChange={setIsBookingOpen}>
+            <DialogTrigger asChild>
+              <Button size="lg" className="bg-green-600 hover:bg-green-700">
+                <Plus className="w-4 h-4 mr-2" />
+                Nouveau rendez-vous
+              </Button>
+            </DialogTrigger>
+            <DialogContent className="max-w-2xl">
+              <DialogHeader>
+                <DialogTitle>Prendre un nouveau rendez-vous</DialogTitle>
+                <DialogDescription>
+                  Choisissez un professionnel de santé et planifiez votre consultation
+                </DialogDescription>
+              </DialogHeader>
+              <BookAppointmentForm onClose={() => setIsBookingOpen(false)} />
+            </DialogContent>
+          </Dialog>
+        )}
       </div>
 
       {/* Statistics Cards */}
@@ -216,17 +244,48 @@ export default function AppointmentsPage() {
                     </div>
                     
                     <div className="flex flex-col space-y-2 md:ml-6">
-                      <Button variant="outline" size="sm">
-                        <Phone className="w-4 h-4 mr-2" />
-                        Contacter
-                      </Button>
-                      <Button variant="outline" size="sm" className="text-red-600 border-red-200 hover:bg-red-50">
-                        <XCircle className="w-4 h-4 mr-2" />
-                        Annuler
-                      </Button>
-                      <Button variant="outline" size="sm" className="text-blue-600 border-blue-200 hover:bg-blue-50" onClick={() => downloadICS(appointment)}>
-                        Ajouter au calendrier
-                      </Button>
+                      {isDoctor ? (
+                        <>
+                          {appointment.status === 'scheduled' && (
+                            <Button
+                              variant="outline"
+                              size="sm"
+                              className="text-green-600 border-green-200 hover:bg-green-50"
+                              onClick={() => dispatch({ type: 'UPDATE_APPOINTMENT', payload: { id: appointment.id, updates: { status: 'confirmed' } } })}
+                            >
+                              <CheckCircle className="w-4 h-4 mr-2" />
+                              Confirmer
+                            </Button>
+                          )}
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            className="text-red-600 border-red-200 hover:bg-red-50"
+                            onClick={() => dispatch({ type: 'UPDATE_APPOINTMENT', payload: { id: appointment.id, updates: { status: 'cancelled' } } })}
+                          >
+                            <XCircle className="w-4 h-4 mr-2" />
+                            Annuler
+                          </Button>
+                          <Button variant="outline" size="sm" className="text-blue-600 border-blue-200 hover:bg-blue-50" onClick={() => sendMedicalReport(appointment)}>
+                            <FileText className="w-4 h-4 mr-2" />
+                            Envoyer rapport
+                          </Button>
+                        </>
+                      ) : (
+                        <>
+                          <Button variant="outline" size="sm">
+                            <Phone className="w-4 h-4 mr-2" />
+                            Contacter
+                          </Button>
+                          <Button variant="outline" size="sm" className="text-red-600 border-red-200 hover:bg-red-50">
+                            <XCircle className="w-4 h-4 mr-2" />
+                            Annuler
+                          </Button>
+                          <Button variant="outline" size="sm" className="text-blue-600 border-blue-200 hover:bg-blue-50" onClick={() => downloadICS(appointment)}>
+                            Ajouter au calendrier
+                          </Button>
+                        </>
+                      )}
                     </div>
                   </div>
                 </CardContent>

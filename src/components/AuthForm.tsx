@@ -12,7 +12,11 @@ const AuthForm: React.FC<AuthFormProps> = ({ onAuthSuccess }) => {
   const [isLogin, setIsLogin] = useState(true);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { login, isLoading } = useAuth();
+  const [role, setRole] = useState<'patient' | 'doctor'>('patient'); // New state for role
+  const [clinicName, setClinicName] = useState(''); // New state for clinic name
+  const [position, setPosition] = useState(''); // New state for position
+  const [specialty, setSpecialty] = useState(''); // New state for specialty
+  const { login, register, isLoading } = useAuth(); // Added register
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
 
@@ -20,11 +24,22 @@ const AuthForm: React.FC<AuthFormProps> = ({ onAuthSuccess }) => {
     e.preventDefault();
     setError(null);
     try {
-      await login(email, password);
+      if (isLogin) {
+        await login(email, password);
+      } else {
+        // Registration logic
+        const userData = {
+          email,
+          password,
+          role,
+          ...(role === 'doctor' && { clinicName, position, specialty }),
+        };
+        await register(userData);
+      }
       if (onAuthSuccess) onAuthSuccess();
       navigate('/fr/dashboard');
     } catch (err: any) {
-      setError('Échec de la connexion.');
+      setError('Échec de l\'authentification.');
     }
   };
 
@@ -49,6 +64,50 @@ const AuthForm: React.FC<AuthFormProps> = ({ onAuthSuccess }) => {
           onChange={e => setPassword(e.target.value)}
           required
         />
+
+        {!isLogin && (
+          <>
+            <select
+              className="w-full border rounded px-3 py-2"
+              value={role}
+              onChange={e => setRole(e.target.value as 'patient' | 'doctor')}
+              required
+            >
+              <option value="patient">Patient</option>
+              <option value="doctor">Médecin</option>
+            </select>
+
+            {role === 'doctor' && (
+              <>
+                <input
+                  type="text"
+                  className="w-full border rounded px-3 py-2"
+                  placeholder="Nom de la clinique/hôpital"
+                  value={clinicName}
+                  onChange={e => setClinicName(e.target.value)}
+                  required
+                />
+                <input
+                  type="text"
+                  className="w-full border rounded px-3 py-2"
+                  placeholder="Poste"
+                  value={position}
+                  onChange={e => setPosition(e.target.value)}
+                  required
+                />
+                <input
+                  type="text"
+                  className="w-full border rounded px-3 py-2"
+                  placeholder="Spécialité"
+                  value={specialty}
+                  onChange={e => setSpecialty(e.target.value)}
+                  required
+                />
+              </>
+            )}
+          </>
+        )}
+
         <button type="submit" className="w-full bg-indigo-600 text-white py-2 rounded" disabled={isLoading}>
           {isLoading ? 'Chargement...' : isLogin ? 'Se connecter' : 'Créer un compte'}
         </button>

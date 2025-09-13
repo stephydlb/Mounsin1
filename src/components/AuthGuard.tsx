@@ -4,17 +4,27 @@ import { useAuth } from '@/hooks/useAuth';
 
 interface AuthGuardProps {
   children: React.ReactNode;
+  allowedRoles?: ('patient' | 'doctor')[];
 }
 
-export function AuthGuard({ children }: AuthGuardProps) {
-  const { isAuthenticated, isLoading } = useAuth();
+export function AuthGuard({ children, allowedRoles }: AuthGuardProps) {
+  const { isAuthenticated, isLoading, user } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!isLoading && !isAuthenticated) {
-      navigate('/fr/auth/login');
+    if (!isLoading) {
+      if (!isAuthenticated) {
+        navigate('/fr/auth/login');
+      } else if (allowedRoles && user && !allowedRoles.includes(user.role)) {
+        // Redirect based on role
+        if (user.role === 'doctor') {
+          navigate('/fr/dashboard'); // Doctors go to dashboard
+        } else {
+          navigate('/fr/dashboard'); // Patients also go to dashboard, or specific patient page
+        }
+      }
     }
-  }, [isAuthenticated, isLoading, navigate]);
+  }, [isAuthenticated, isLoading, user, allowedRoles, navigate]);
 
   // Show loading spinner while checking auth
   if (isLoading) {
@@ -25,8 +35,8 @@ export function AuthGuard({ children }: AuthGuardProps) {
     );
   }
 
-  // Don't render children if not authenticated
-  if (!isAuthenticated) {
+  // Don't render children if not authenticated or role not allowed
+  if (!isAuthenticated || (allowedRoles && user && !allowedRoles.includes(user.role))) {
     return null;
   }
 
