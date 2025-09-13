@@ -8,9 +8,9 @@ export const mockUser: User = {
   lastName: 'Mvou Ayissi',
   phone: '+241 06 12 34 56',
   dateOfBirth: '1985-03-15',
-  address: '123 Avenue Bouet',
+  address: 'Avenue Bouet, Quartier Louis, Libreville',
   city: 'Libreville',
-  medicalId: 'GAB123456789',
+  medicalId: 'GAB-19850315-001',
   emergencyContact: {
     name: 'Marie Mvou',
     phone: '+241 06 98 76 54',
@@ -31,9 +31,9 @@ export const mockDoctors: Doctor[] = [
     rating: 4.8,
     experience: 15,
     location: {
-      address: 'BP 2228 Libreville',
+      address: 'CHU Libreville, Avenue de la République, Libreville',
       city: 'Libreville',
-      coordinates: { lat: 0.4162, lng: 9.4673 }
+      coordinates: { lat: 0.3901, lng: 9.4534 }
     },
     availability: [
       { day: 'Lundi', slots: ['08:00', '09:00', '10:00', '14:00', '15:00'] },
@@ -54,9 +54,9 @@ export const mockDoctors: Doctor[] = [
     rating: 4.6,
     experience: 12,
     location: {
-      address: 'Quartier Louis, Libreville',
+      address: 'Quartier Louis, Libreville (près du marché)',
       city: 'Libreville',
-      coordinates: { lat: 0.4037, lng: 9.4531 }
+      coordinates: { lat: 0.3979, lng: 9.4572 }
     },
     availability: [
       { day: 'Lundi', slots: ['07:30', '08:30', '09:30', '10:30', '14:30', '15:30'] },
@@ -78,9 +78,9 @@ export const mockDoctors: Doctor[] = [
     rating: 4.9,
     experience: 18,
     location: {
-      address: 'Owendo, Libreville',
+      address: 'Hôpital Pédiatrique Omar Bongo, Owendo, Libreville',
       city: 'Libreville',
-      coordinates: { lat: 0.3475, lng: 9.5025 }
+      coordinates: { lat: 0.3502, lng: 9.5010 }
     },
     availability: [
       { day: 'Lundi', slots: ['08:00', '09:00', '10:00', '11:00', '14:00', '15:00', '16:00'] },
@@ -101,9 +101,9 @@ export const mockDoctors: Doctor[] = [
     rating: 4.7,
     experience: 20,
     location: {
-      address: 'PK8, Libreville',
+      address: 'PK8, Libreville (Avenue Kennedy)',
       city: 'Libreville',
-      coordinates: { lat: 0.4521, lng: 9.4123 }
+      coordinates: { lat: 0.4410, lng: 9.4275 }
     },
     availability: [
       { day: 'Lundi', slots: ['09:00', '10:00', '11:00', '14:00', '15:00'] },
@@ -114,6 +114,56 @@ export const mockDoctors: Doctor[] = [
     ]
   }
 ]
+
+// Doctors in Franceville
+mockDoctors.push(
+  {
+    id: '5',
+    firstName: 'Dr. Léon',
+    lastName: 'Moussavou',
+    specialty: 'Médecine Générale',
+    hospital: 'Hôpital Régional de Franceville',
+    phone: '+241 41 21 21 21',
+    email: 'l.moussavou@hrf.ga',
+    rating: 4.5,
+    experience: 10,
+    location: {
+      address: 'Avenue de la République, Franceville',
+      city: 'Franceville',
+      coordinates: { lat: -1.6333, lng: 13.5833 }
+    },
+    availability: [
+      { day: 'Lundi', slots: ['08:00', '09:00', '10:00', '14:00'] },
+      { day: 'Mercredi', slots: ['08:00', '09:00', '10:00'] },
+      { day: 'Vendredi', slots: ['08:00', '09:00', '10:00', '14:00'] }
+    ]
+  }
+)
+
+// Doctors in Port-Gentil
+mockDoctors.push(
+  {
+    id: '6',
+    firstName: 'Dr. Sylvie',
+    lastName: 'Owono',
+    specialty: 'Chirurgie',
+    hospital: 'Clinique Port-Gentil',
+    phone: '+241 61 31 31 31',
+    email: 's.owono@cliniquepg.ga',
+    rating: 4.4,
+    experience: 12,
+    location: {
+      address: 'Boulevard du Port, Port-Gentil',
+      city: 'Port-Gentil',
+      coordinates: { lat: -0.7167, lng: 8.7833 }
+    },
+    availability: [
+      { day: 'Mardi', slots: ['08:00', '09:00', '10:00', '14:00'] },
+      { day: 'Jeudi', slots: ['08:00', '09:00', '10:00', '14:00'] },
+      { day: 'Samedi', slots: ['09:00', '10:00'] }
+    ]
+  }
+)
 
 // Mock appointments
 export const mockAppointments: Appointment[] = [
@@ -284,11 +334,43 @@ export const mockPharmacies: Pharmacy[] = [
     phone: '+241 01 66 66 66',
     hours: '09:00 - 19:00',
     isOpen24h: false,
-    coordinates: { lat: 0.3475, lng: 9.5025 },
+    coordinates: { lat: 0.3500, lng: 9.5005 },
     hasDelivery: true,
     services: ['Médicaments', 'Cosmétiques', 'Bébé-enfant', 'Orthopédie']
   }
 ]
+
+// Pharmacies in Franceville
+mockPharmacies.push(
+  {
+    id: '5',
+    name: 'Pharmacie Centrale Franceville',
+    address: 'Avenue du Gouvernement, Franceville',
+    city: 'Franceville',
+    phone: '+241 41 31 31 31',
+    hours: '08:00 - 20:00',
+    isOpen24h: false,
+    coordinates: { lat: -1.6335, lng: 13.5840 },
+    hasDelivery: false,
+    services: ['Médicaments sur ordonnance', 'Conseils pharmaceutiques']
+  }
+)
+
+// Pharmacies in Port-Gentil
+mockPharmacies.push(
+  {
+    id: '6',
+    name: 'Pharmacie du Port',
+    address: 'Quartier Minier, Port-Gentil',
+    city: 'Port-Gentil',
+    phone: '+241 61 41 41 41',
+    hours: '07:00 - 22:00',
+    isOpen24h: false,
+    coordinates: { lat: -0.7180, lng: 8.7760 },
+    hasDelivery: true,
+    services: ['Médicaments', 'Urgences', 'Livraison']
+  }
+)
 
 // Mock vaccinations
 export const mockVaccinations: Vaccination[] = [
