@@ -11,6 +11,7 @@ import MedicalRecordsPage from './medical-records/MedicalRecordsPage'
 import NotificationsPage from './notifications/NotificationsPage'
 import DoctorsPage from './doctors/DoctorsPage'
 import PharmaciesPage from './pharmacies/PharmaciesPage'
+import MapDemo from './MapDemo'
 import ProfilePage from './profile/ProfilePage'
 import SettingsPage from './settings/SettingsPage'
 import VaccinationsPage from './vaccinations/VaccinationsPage'
@@ -26,6 +27,7 @@ function App() {
         
         {/* French locale routes */}
   <Route path="/fr" element={<HomePage />} />
+    <Route path="/fr/map-demo" element={<MapDemo />} />
         <Route path="/fr/auth/login" element={<LoginPage />} />
         
         {/* Protected routes */}

@@ -29,6 +29,7 @@ import {
   Bell,
   Search
 } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 interface HeaderProps {
   title?: string;
@@ -111,6 +112,15 @@ export function Header({ title }: HeaderProps) {
           {/* Search */}
           <Button variant="ghost" size="icon" className="hidden sm:flex">
             <Search className="h-5 w-5" />
+          </Button>
+
+          {/* Map link */}
+          <Button asChild variant="ghost" size="icon" className="hidden sm:flex">
+            <Link to="/fr/map-demo" title="Carte">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 20l-5.447-2.724A2 2 0 013 15.382V5.618a2 2 0 011.553-1.966L9 1m0 19l6-3 6 3M9 1v19M15 4v16" />
+              </svg>
+            </Link>
           </Button>
 
           {/* Notifications */}
