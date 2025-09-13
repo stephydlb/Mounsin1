@@ -27,12 +27,41 @@ const OpenAIBotPopup: React.FC = () => {
     console.log('sendMessage called, input=', input)
     setMessages(msgs => [...msgs, { sender: 'user', text: input }]);
     setLoading(true);
-    // Simule une réponse OpenAI (remplacer par appel API réel si besoin)
-    setTimeout(() => {
-      setMessages(msgs => [...msgs, { sender: 'bot', text: "(Réponse automatique) Je suis là pour vous aider !" }]);
-      setLoading(false);
-      console.log('simulated bot response pushed')
-    }, 1200);
+    // Appel réel à l'API OpenAI (remplacer la clé par une variable d'env côté backend ou proxy)
+    try {
+      const apiKey = import.meta.env.VITE_OPENAI_API_KEY;
+      if (!apiKey) {
+        setMessages(msgs => [...msgs, { sender: 'bot', text: "Erreur : clé API OpenAI manquante (VITE_OPENAI_API_KEY)" }]);
+        setLoading(false);
+        return;
+      }
+      const res = await fetch('https://api.openai.com/v1/chat/completions', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${apiKey}`
+        },
+        body: JSON.stringify({
+          model: 'gpt-3.5-turbo',
+          messages: [
+            { role: 'system', content: 'Tu es un assistant médical pour la plateforme Mounsin. Réponds de façon claire et concise.' },
+            ...messages.filter(m => m.sender !== 'bot').map(m => ({ role: 'user', content: m.text })),
+            { role: 'user', content: input }
+          ],
+          max_tokens: 256,
+          temperature: 0.7
+        })
+      });
+      if (!res.ok) {
+        throw new Error('Erreur API OpenAI');
+      }
+      const data = await res.json();
+      const answer = data.choices?.[0]?.message?.content || "Je n'ai pas compris, peux-tu reformuler ?";
+      setMessages(msgs => [...msgs, { sender: 'bot', text: answer }]);
+    } catch (err) {
+      setMessages(msgs => [...msgs, { sender: 'bot', text: "Erreur lors de la connexion à OpenAI." }]);
+    }
+    setLoading(false);
     setInput('');
   };
 
