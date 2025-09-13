@@ -419,3 +419,118 @@ export const mockVaccinations: Vaccination[] = [
     notes: 'Recommandé pour les voyages en zone d\'endémie'
   }
 ]
+
+// Additional facilities (labs, imaging centers, etc.) and more cities
+export const mockFacilities: any[] = [
+  // Libreville sample facility
+  {
+    id: 'f1',
+    type: 'Laboratoire',
+    name: 'Laboratoire National de Santé Publique',
+    address: 'Avenue de la Liberté, Libreville',
+    city: 'Libreville',
+    phone: '+241 01 55 55 55',
+    coordinates: { lat: 0.3925, lng: 9.4530 },
+    services: ['Analyses sanguines', 'Tests PCR', 'Bactériologie']
+  },
+  // Franceville facility
+  {
+    id: 'f2',
+    type: 'Imagerie',
+    name: 'Centre d\'Imagerie Franceville',
+    address: 'Rue du Marché, Franceville',
+    city: 'Franceville',
+    phone: '+241 41 32 32 32',
+    coordinates: { lat: -1.6328, lng: 13.5842 },
+    services: ['Radiologie', 'Échographie', 'IRM (réseau régional)']
+  },
+  // Port-Gentil facility
+  {
+    id: 'f3',
+    type: 'Laboratoire',
+    name: 'Laboratoire Port-Gentil',
+    address: 'Boulevard du Port, Port-Gentil',
+    city: 'Port-Gentil',
+    phone: '+241 61 32 32 32',
+    coordinates: { lat: -0.7165, lng: 8.7810 },
+    services: ['Analyses rapides', 'Bactériologie']
+  }
+]
+
+// Add Oyem and Makokou doctors and pharmacies
+mockDoctors.push(
+  {
+    id: '7',
+    firstName: 'Dr. Hervé',
+    lastName: 'Owono',
+    specialty: 'Médecine Générale',
+    hospital: 'Centre Hospitalier Oyem',
+    phone: '+241 22 11 11 11',
+    email: 'h.owono@choyem.ga',
+    rating: 4.3,
+    experience: 8,
+    location: {
+      address: 'Avenue Centrale, Oyem',
+      city: 'Oyem',
+      coordinates: { lat: 1.6000, lng: 11.5833 }
+    },
+    availability: [
+      { day: 'Lundi', slots: ['08:00', '09:00', '10:00'] },
+      { day: 'Mercredi', slots: ['08:00', '09:00'] },
+      { day: 'Vendredi', slots: ['08:00', '09:00', '10:00'] }
+    ]
+  }
+)
+
+mockDoctors.push(
+  {
+    id: '8',
+    firstName: 'Dr. Agnès',
+    lastName: 'Makaya',
+    specialty: 'Gynécologie',
+    hospital: 'Hôpital Régional Makokou',
+    phone: '+241 52 21 21 21',
+    email: 'a.makaya@hrmakokou.ga',
+    rating: 4.2,
+    experience: 9,
+    location: {
+      address: 'Centre-ville, Makokou',
+      city: 'Makokou',
+      coordinates: { lat: 0.5790, lng: 12.8660 }
+    },
+    availability: [
+      { day: 'Mardi', slots: ['08:00', '09:00', '10:00'] },
+      { day: 'Jeudi', slots: ['08:00', '09:00', '10:00'] }
+    ]
+  }
+)
+
+mockPharmacies.push(
+  {
+    id: '7',
+    name: 'Pharmacie Centrale Oyem',
+    address: 'Avenue Centrale, Oyem',
+    city: 'Oyem',
+    phone: '+241 22 22 22 22',
+    hours: '08:00 - 20:00',
+    isOpen24h: false,
+    coordinates: { lat: 1.6010, lng: 11.5840 },
+    hasDelivery: false,
+    services: ['Médicaments', 'Conseils pharmaceutiques']
+  }
+)
+
+mockPharmacies.push(
+  {
+    id: '8',
+    name: 'Pharmacie Makokou',
+    address: 'Rue Principale, Makokou',
+    city: 'Makokou',
+    phone: '+241 52 22 22 22',
+    hours: '07:30 - 19:30',
+    isOpen24h: false,
+    coordinates: { lat: 0.5795, lng: 12.8655 },
+    hasDelivery: false,
+    services: ['Médicaments', 'Produits locaux']
+  }
+)
