@@ -58,12 +58,16 @@ export default function DashboardPage() {
     }
   ]
 
+  const isDoctor = state.user?.role === 'doctor';
+  const isPatient = state.user?.role === 'patient';
+
   return (
     <div className="space-y-6">
       <div>
         <h1 className="text-3xl font-bold text-gray-900">Tableau de bord</h1>
         <p className="text-gray-600 mt-2">
-          Bienvenue sur votre plateforme de santé personnalisée
+          Bienvenue sur votre plateforme de santé personnalisée, {state.user?.firstName} {state.user?.lastName}!
+          {isDoctor && <span className="ml-2 text-indigo-600">({state.user?.position} à {state.user?.clinicName})</span>}
         </p>
       </div>
 
@@ -192,27 +196,50 @@ export default function DashboardPage() {
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <Link to="/fr/dashboard/appointments">
-              <div className="p-4 border rounded-lg hover:bg-gray-50 cursor-pointer transition-colors">
-                <Calendar className="h-8 w-8 text-green-600 mb-2" />
-                <h3 className="font-semibold">Prendre rendez-vous</h3>
-                <p className="text-sm text-gray-600">Planifier une consultation</p>
-              </div>
-            </Link>
-            <Link to="/fr/dashboard/medical-records">
-              <div className="p-4 border rounded-lg hover:bg-gray-50 cursor-pointer transition-colors">
-                <FileText className="h-8 w-8 text-green-600 mb-2" />
-                <h3 className="font-semibold">Mes documents</h3>
-                <p className="text-sm text-gray-600">Consulter mon dossier médical</p>
-              </div>
-            </Link>
-            <Link to="/fr/dashboard/doctors">
-              <div className="p-4 border rounded-lg hover:bg-gray-50 cursor-pointer transition-colors">
-                <Users className="h-8 w-8 text-green-600 mb-2" />
-                <h3 className="font-semibold">Mes professionnels</h3>
-                <p className="text-sm text-gray-600">Contacter un professionnel</p>
-              </div>
-            </Link>
+            {isPatient && (
+              <>
+                <Link to="/fr/dashboard/appointments">
+                  <div className="p-4 border rounded-lg hover:bg-gray-50 cursor-pointer transition-colors">
+                    <Calendar className="h-8 w-8 text-green-600 mb-2" />
+                    <h3 className="font-semibold">Prendre rendez-vous</h3>
+                    <p className="text-sm text-gray-600">Planifier une consultation</p>
+                  </div>
+                </Link>
+                <Link to="/fr/dashboard/medical-records">
+                  <div className="p-4 border rounded-lg hover:bg-gray-50 cursor-pointer transition-colors">
+                    <FileText className="h-8 w-8 text-green-600 mb-2" />
+                    <h3 className="font-semibold">Mes documents</h3>
+                    <p className="text-sm text-gray-600">Consulter mon dossier médical</p>
+                  </div>
+                </Link>
+                <Link to="/fr/dashboard/doctors">
+                  <div className="p-4 border rounded-lg hover:bg-gray-50 cursor-pointer transition-colors">
+                    <Users className="h-8 w-8 text-green-600 mb-2" />
+                    <h3 className="font-semibold">Mes professionnels</h3>
+                    <p className="text-sm text-gray-600">Contacter un professionnel</p>
+                  </div>
+                </Link>
+              </>
+            )}
+            {isDoctor && (
+              <>
+                <Link to="/fr/dashboard/appointments">
+                  <div className="p-4 border rounded-lg hover:bg-gray-50 cursor-pointer transition-colors">
+                    <Calendar className="h-8 w-8 text-indigo-600 mb-2" />
+                    <h3 className="font-semibold">Gérer les rendez-vous</h3>
+                    <p className="text-sm text-gray-600">Accepter, fixer ou annuler</p>
+                  </div>
+                </Link>
+                <Link to="/fr/dashboard/medical-records">
+                  <div className="p-4 border rounded-lg hover:bg-gray-50 cursor-pointer transition-colors">
+                    <FileText className="h-8 w-8 text-indigo-600 mb-2" />
+                    <h3 className="font-semibold">Envoyer un rapport</h3>
+                    <p className="text-sm text-gray-600">Partager des documents médicaux</p>
+                  </div>
+                </Link>
+                {/* Add more doctor-specific quick actions here if needed */}
+              </>
+            )}
           </div>
         </CardContent>
       </Card>

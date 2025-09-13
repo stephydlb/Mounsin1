@@ -10,6 +10,7 @@ export const mockUser: User = {
   dateOfBirth: '1985-03-15',
   address: 'Avenue Bouet, Quartier Louis, Libreville',
   city: 'Libreville',
+  role: 'patient',
   medicalId: 'GAB-19850315-001',
   emergencyContact: {
     name: 'Marie Mvou',

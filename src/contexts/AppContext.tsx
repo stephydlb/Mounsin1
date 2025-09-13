@@ -11,12 +11,18 @@ export interface User {
   address: string
   city: string
   avatar?: string
-  medicalId: string
-  emergencyContact: {
+  role: 'patient' | 'doctor' // Added role field
+  // Patient-specific fields
+  medicalId?: string
+  emergencyContact?: {
     name: string
     phone: string
     relationship: string
   }
+  // Doctor-specific fields
+  clinicName?: string
+  position?: string
+  specialty?: string
 }
 
 export interface Appointment {
@@ -122,6 +128,7 @@ export type AppAction =
   | { type: 'ADD_APPOINTMENT'; payload: Appointment }
   | { type: 'UPDATE_APPOINTMENT'; payload: { id: string; updates: Partial<Appointment> } }
   | { type: 'SET_MEDICAL_RECORDS'; payload: MedicalRecord[] }
+  | { type: 'ADD_MEDICAL_RECORD'; payload: MedicalRecord }
   | { type: 'SET_NOTIFICATIONS'; payload: Notification[] }
   | { type: 'MARK_NOTIFICATION_READ'; payload: string }
   | { type: 'SET_DOCTORS'; payload: Doctor[] }
@@ -163,6 +170,8 @@ function appReducer(state: AppState, action: AppAction): AppState {
       }
     case 'SET_MEDICAL_RECORDS':
       return { ...state, medicalRecords: action.payload }
+    case 'ADD_MEDICAL_RECORD':
+      return { ...state, medicalRecords: [...state.medicalRecords, action.payload] }
     case 'SET_NOTIFICATIONS':
       return { ...state, notifications: action.payload }
     case 'MARK_NOTIFICATION_READ':
