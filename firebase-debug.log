@@ -1,0 +1,118 @@
+[debug] [2025-09-13T09:23:55.057Z] ----------------------------------------------------------------------
+[debug] [2025-09-13T09:23:55.068Z] Command:       /home/chardelin/.nvm/versions/node/v22.19.0/bin/node /home/chardelin/.nvm/versions/node/v22.19.0/bin/firebase init apphosting
+[debug] [2025-09-13T09:23:55.070Z] CLI Version:   14.16.0
+[debug] [2025-09-13T09:23:55.071Z] Platform:      linux
+[debug] [2025-09-13T09:23:55.071Z] Node Version:  v22.19.0
+[debug] [2025-09-13T09:23:55.073Z] Time:          Sat Sep 13 2025 10:23:55 GMT+0100 (West Africa Standard Time)
+[debug] [2025-09-13T09:23:55.074Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2025-09-13T09:23:55.098Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-09-13T09:23:55.100Z] > authorizing via signed-in user (stephkalubiaka@gmail.com)
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  /home/chardelin/Documents/mounsin/gabon-sante-facile
+
+[info] 
+=== Project Setup
+[info] 
+[info] First, let's associate this project directory with a Firebase project.
+[info] You can create multiple project aliases by running firebase use --add, 
+[info] but for now we'll just set up a default project.
+[info] 
+[debug] [2025-09-13T09:23:59.535Z] Checked if tokens are valid: true, expires at: 1757758765891
+[debug] [2025-09-13T09:23:59.536Z] Checked if tokens are valid: true, expires at: 1757758765891
+[debug] [2025-09-13T09:23:59.544Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects pageSize=100
+[debug] [2025-09-13T09:24:00.539Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects 200
+[debug] [2025-09-13T09:24:00.540Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects [omitted]
+[debug] [2025-09-13T09:29:37.882Z] ExitPromptError: User force closed the prompt with SIGINT
+    at Interface.sigint (/home/chardelin/.nvm/versions/node/v22.19.0/lib/node_modules/firebase-tools/node_modules/@inquirer/core/dist/commonjs/lib/create-prompt.js:101:37)
+    at Interface.emit (node:events:519:28)
+    at Interface.emit (node:domain:489:12)
+    at [_ttyWrite] [as _ttyWrite] (node:internal/readline/interface:1132:18)
+    at ReadStream.onkeypress (node:internal/readline/interface:271:20)
+    at ReadStream.emit (node:events:531:35)
+    at ReadStream.emit (node:domain:489:12)
+    at emitKeys (node:internal/readline/utils:370:14)
+    at emitKeys.next (<anonymous>)
+    at ReadStream.onData (node:internal/readline/emitKeypressEvents:64:36)
+[error] 
+[error] Error: An unexpected error has occurred.
+[debug] [2025-09-13T09:32:23.354Z] ----------------------------------------------------------------------
+[debug] [2025-09-13T09:32:23.364Z] Command:       /home/chardelin/.nvm/versions/node/v22.19.0/bin/node /home/chardelin/.nvm/versions/node/v22.19.0/bin/firebase init apphosting
+[debug] [2025-09-13T09:32:23.366Z] CLI Version:   14.16.0
+[debug] [2025-09-13T09:32:23.367Z] Platform:      linux
+[debug] [2025-09-13T09:32:23.367Z] Node Version:  v22.19.0
+[debug] [2025-09-13T09:32:23.369Z] Time:          Sat Sep 13 2025 10:32:23 GMT+0100 (West Africa Standard Time)
+[debug] [2025-09-13T09:32:23.370Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2025-09-13T09:32:23.390Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-09-13T09:32:23.393Z] > authorizing via signed-in user (stephkalubiaka@gmail.com)
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  /home/chardelin/Documents/mounsin/gabon-sante-facile
+
+[info] 
+=== Project Setup
+[info] 
+[info] First, let's associate this project directory with a Firebase project.
+[info] You can create multiple project aliases by running firebase use --add, 
+[info] but for now we'll just set up a default project.
+[info] 
+[info] i  If you want to create a project in a Google Cloud organization or folder, please use "firebase projects:create" instead, and return to this command when you've created the project. 
+[debug] [2025-09-13T09:33:09.448Z] Checked if tokens are valid: true, expires at: 1757758765891
+[debug] [2025-09-13T09:33:09.452Z] Checked if tokens are valid: true, expires at: 1757758765891
+[debug] [2025-09-13T09:33:09.479Z] >>> [apiv2][query] POST https://firebase.googleapis.com/v1/projects:checkProjectId [none]
+[debug] [2025-09-13T09:33:09.481Z] >>> [apiv2][body] POST https://firebase.googleapis.com/v1/projects:checkProjectId {"proposedId":"Mounsin1"}
+[debug] [2025-09-13T09:33:10.297Z] <<< [apiv2][status] POST https://firebase.googleapis.com/v1/projects:checkProjectId 200
+[debug] [2025-09-13T09:33:10.299Z] <<< [apiv2][body] POST https://firebase.googleapis.com/v1/projects:checkProjectId {"projectIdStatus":"PROJECT_ID_NOT_VALID","suggestedProjectId":"mounsin1"}
+[debug] [2025-09-13T09:33:25.513Z] Checked if tokens are valid: true, expires at: 1757758765891
+[debug] [2025-09-13T09:33:25.513Z] Checked if tokens are valid: true, expires at: 1757758765891
+[debug] [2025-09-13T09:33:25.521Z] >>> [apiv2][query] POST https://firebase.googleapis.com/v1/projects:checkProjectId [none]
+[debug] [2025-09-13T09:33:25.521Z] >>> [apiv2][body] POST https://firebase.googleapis.com/v1/projects:checkProjectId {"proposedId":"Mounsin1"}
+[debug] [2025-09-13T09:33:26.060Z] <<< [apiv2][status] POST https://firebase.googleapis.com/v1/projects:checkProjectId 200
+[debug] [2025-09-13T09:33:26.062Z] <<< [apiv2][body] POST https://firebase.googleapis.com/v1/projects:checkProjectId {"projectIdStatus":"PROJECT_ID_NOT_VALID","suggestedProjectId":"mounsin1"}
+[debug] [2025-09-13T09:33:38.180Z] Checked if tokens are valid: true, expires at: 1757758765891
+[debug] [2025-09-13T09:33:38.182Z] Checked if tokens are valid: true, expires at: 1757758765891
+[debug] [2025-09-13T09:33:38.191Z] >>> [apiv2][query] POST https://firebase.googleapis.com/v1/projects:checkProjectId [none]
+[debug] [2025-09-13T09:33:38.192Z] >>> [apiv2][body] POST https://firebase.googleapis.com/v1/projects:checkProjectId {"proposedId":"Mounsin12"}
+[debug] [2025-09-13T09:33:38.964Z] <<< [apiv2][status] POST https://firebase.googleapis.com/v1/projects:checkProjectId 200
+[debug] [2025-09-13T09:33:38.964Z] <<< [apiv2][body] POST https://firebase.googleapis.com/v1/projects:checkProjectId {"projectIdStatus":"PROJECT_ID_NOT_VALID","suggestedProjectId":"mounsin12-fec1d"}
+[debug] [2025-09-13T09:33:54.761Z] Checked if tokens are valid: true, expires at: 1757758765891
+[debug] [2025-09-13T09:33:54.763Z] Checked if tokens are valid: true, expires at: 1757758765891
+[debug] [2025-09-13T09:33:54.777Z] >>> [apiv2][query] POST https://firebase.googleapis.com/v1/projects:checkProjectId [none]
+[debug] [2025-09-13T09:33:54.779Z] >>> [apiv2][body] POST https://firebase.googleapis.com/v1/projects:checkProjectId {"proposedId":"Mounsin12-dlb"}
+[debug] [2025-09-13T09:33:55.366Z] <<< [apiv2][status] POST https://firebase.googleapis.com/v1/projects:checkProjectId 200
+[debug] [2025-09-13T09:33:55.367Z] <<< [apiv2][body] POST https://firebase.googleapis.com/v1/projects:checkProjectId {"projectIdStatus":"PROJECT_ID_NOT_VALID","suggestedProjectId":"mounsin12-dlb"}
+[debug] [2025-09-13T09:34:03.759Z] Checked if tokens are valid: true, expires at: 1757758765891
+[debug] [2025-09-13T09:34:03.762Z] Checked if tokens are valid: true, expires at: 1757758765891
+[debug] [2025-09-13T09:34:03.775Z] >>> [apiv2][query] POST https://firebase.googleapis.com/v1/projects:checkProjectId [none]
+[debug] [2025-09-13T09:34:03.776Z] >>> [apiv2][body] POST https://firebase.googleapis.com/v1/projects:checkProjectId {"proposedId":"Mounsin12-dlb."}
+[debug] [2025-09-13T09:34:04.177Z] <<< [apiv2][status] POST https://firebase.googleapis.com/v1/projects:checkProjectId 400
+[debug] [2025-09-13T09:34:04.178Z] <<< [apiv2][body] POST https://firebase.googleapis.com/v1/projects:checkProjectId {"error":{"code":400,"message":"Request contains an invalid argument.","status":"INVALID_ARGUMENT"}}
+[debug] [2025-09-13T09:34:04.183Z] Couldn't check if project ID Mounsin12-dlb. is available. Original error: FirebaseError: Failed to check if project ID is available. See firebase-debug.log for more info.
+[debug] [2025-09-13T09:34:34.408Z] Checked if tokens are valid: true, expires at: 1757758765891
+[debug] [2025-09-13T09:34:34.409Z] Checked if tokens are valid: true, expires at: 1757758765891
+[debug] [2025-09-13T09:34:34.412Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects [none]
+[debug] [2025-09-13T09:34:34.413Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects {"projectId":"Mounsin12-dlb.","name":"mounsin-1"}
+[debug] [2025-09-13T09:34:35.567Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects 400
+[debug] [2025-09-13T09:34:35.568Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects {"error":{"code":400,"message":"field [project_id] has issue [project_id contains invalid characters]","status":"INVALID_ARGUMENT","details":[{"@type":"type.googleapis.com/google.rpc.BadRequest","fieldViolations":[{"field":"project_id","description":"project_id contains invalid characters"}]},{"@type":"type.googleapis.com/google.rpc.Help","links":[{"url":"https://cloud.google.com/resource-manager/reference/rest/v1/projects"}]}]}}
+[debug] [2025-09-13T09:34:35.998Z] FirebaseError: Request to https://cloudresourcemanager.googleapis.com/v1/projects had HTTP Error: 400, field [project_id] has issue [project_id contains invalid characters]
+    at responseToError (/home/chardelin/.nvm/versions/node/v22.19.0/lib/node_modules/firebase-tools/lib/responseToError.js:52:12)
+    at RetryOperation._fn (/home/chardelin/.nvm/versions/node/v22.19.0/lib/node_modules/firebase-tools/lib/apiv2.js:312:77)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+[error] 
+[error] Error: Failed to create project. See firebase-debug.log for more info.
