@@ -16,22 +16,29 @@ const OpenAIBotPopup: React.FC = () => {
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
 
+  // Debug logs to trace behavior
+  React.useEffect(() => {
+    console.log('OpenAIBotPopup mounted')
+  }, [])
+
   const sendMessage = async (e?: React.FormEvent) => {
     if (e) e.preventDefault();
     if (!input.trim()) return;
+    console.log('sendMessage called, input=', input)
     setMessages(msgs => [...msgs, { sender: 'user', text: input }]);
     setLoading(true);
     // Simule une réponse OpenAI (remplacer par appel API réel si besoin)
     setTimeout(() => {
       setMessages(msgs => [...msgs, { sender: 'bot', text: "(Réponse automatique) Je suis là pour vous aider !" }]);
       setLoading(false);
+      console.log('simulated bot response pushed')
     }, 1200);
     setInput('');
   };
 
   return (
     <>
-      <Button onClick={() => setOpen(true)} className="fixed bottom-6 right-6 z-50 bg-blue-600 hover:bg-blue-700 rounded-full w-16 h-16 shadow-lg flex items-center justify-center text-2xl">💬</Button>
+  <Button onClick={() => { console.log('open button clicked'); setOpen(true) }} className="fixed bottom-6 right-6 z-50 bg-blue-600 hover:bg-blue-700 rounded-full w-16 h-16 shadow-lg flex items-center justify-center text-2xl">💬</Button>
       {open && (
         <div className="fixed bottom-24 right-6 z-50 w-80 bg-white rounded-lg shadow-xl border flex flex-col">
           <div className="p-3 border-b font-bold bg-blue-600 text-white rounded-t-lg flex justify-between items-center">
