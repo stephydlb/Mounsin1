@@ -59,7 +59,7 @@ export function Sidebar({ className }: SidebarProps) {
           <Heart className="h-6 w-6 text-green-600" />
         </div>
         <div>
-          <h1 className="font-bold text-lg">Gabon Santé</h1>
+          <h1 className="font-bold text-lg">Mounsin</h1>
           <p className="text-sm text-gray-500">Facile</p>
         </div>
       </div>
