@@ -8,7 +8,7 @@ const HomePage: React.FC = () => {
       <img src="/file.svg" alt="Logo" className="w-20 mb-6" />
       <h1 className="text-4xl font-bold text-green-600 mb-2">Mounsin</h1>
       <p className="text-lg text-gray-700 mb-8 text-center max-w-md">
-        Plateforme de santé centralisée pour vous faciliter l'acces aux soins. Accédez à vos rendez-vous, dossiers médicaux, notifications et plus encore !
+        Plateforme de santé centralisée pour vous faciliter l'accès aux soins. Accédez à vos rendez-vous, dossiers médicaux, notifications et plus encore !
       </p>
       <div className="flex gap-4 flex-wrap justify-center">
         <Link to="/fr/auth/login" className="px-7 py-3 bg-green-600 text-white rounded-lg font-semibold hover:bg-green-700 transition">Se connecter</Link>
