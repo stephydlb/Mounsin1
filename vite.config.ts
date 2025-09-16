@@ -14,4 +14,10 @@ export default defineConfig({
     port: 3000,
     open: true,
   },
+  // Exclude API directory from Vite processing (handled by Vercel)
+  build: {
+    rollupOptions: {
+      external: ['api']
+    }
+  }
 })

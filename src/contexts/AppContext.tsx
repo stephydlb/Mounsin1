@@ -1,4 +1,13 @@
-import React, { createContext, useContext, useReducer, ReactNode } from 'react'
+import React, { createContext, useContext, useReducer, ReactNode, useEffect } from 'react'
+import {
+  usersApi,
+  doctorsApi,
+  appointmentsApi,
+  medicalRecordsApi,
+  notificationsApi,
+  pharmaciesApi,
+  vaccinationsApi
+} from '../lib/api'
 
 // Types
 export interface User {
@@ -193,14 +202,110 @@ function appReducer(state: AppState, action: AppAction): AppState {
 const AppContext = createContext<{
   state: AppState
   dispatch: React.Dispatch<AppAction>
+  loadUserData: (userId: string) => Promise<void>
+  createAppointment: (appointment: Omit<Appointment, 'id'>) => Promise<any>
+  updateAppointment: (id: string, updates: Partial<Appointment>) => Promise<any>
+  markNotificationRead: (id: string) => Promise<any>
 } | null>(null)
 
 // Provider
 export function AppProvider({ children }: { children: ReactNode }) {
   const [state, dispatch] = useReducer(appReducer, initialState)
 
+  // Load initial data
+  useEffect(() => {
+    const loadInitialData = async () => {
+      dispatch({ type: 'SET_LOADING', payload: true })
+
+      try {
+        // Load doctors
+        const doctorsResponse = await doctorsApi.getAll()
+        if (doctorsResponse.success && doctorsResponse.data) {
+          dispatch({ type: 'SET_DOCTORS', payload: doctorsResponse.data as Doctor[] })
+        }
+
+        // Load pharmacies
+        const pharmaciesResponse = await pharmaciesApi.getAll()
+        if (pharmaciesResponse.success && pharmaciesResponse.data) {
+          dispatch({ type: 'SET_PHARMACIES', payload: pharmaciesResponse.data as Pharmacy[] })
+        }
+
+        // For user-specific data, we would need userId from auth
+        // For now, we'll load general data
+      } catch (error) {
+        console.error('Error loading initial data:', error)
+      } finally {
+        dispatch({ type: 'SET_LOADING', payload: false })
+      }
+    }
+
+    loadInitialData()
+  }, [])
+
+  // Async actions
+  const loadUserData = async (userId: string) => {
+    dispatch({ type: 'SET_LOADING', payload: true })
+
+    try {
+      const [appointmentsRes, medicalRecordsRes, notificationsRes, vaccinationsRes] = await Promise.all([
+        appointmentsApi.getAll(userId),
+        medicalRecordsApi.getAll(userId),
+        notificationsApi.getAll(userId),
+        vaccinationsApi.getAll(userId)
+      ])
+
+      if (appointmentsRes.success && appointmentsRes.data) {
+        dispatch({ type: 'SET_APPOINTMENTS', payload: appointmentsRes.data as Appointment[] })
+      }
+      if (medicalRecordsRes.success && medicalRecordsRes.data) {
+        dispatch({ type: 'SET_MEDICAL_RECORDS', payload: medicalRecordsRes.data as MedicalRecord[] })
+      }
+      if (notificationsRes.success && notificationsRes.data) {
+        dispatch({ type: 'SET_NOTIFICATIONS', payload: notificationsRes.data as Notification[] })
+      }
+      if (vaccinationsRes.success && vaccinationsRes.data) {
+        dispatch({ type: 'SET_VACCINATIONS', payload: vaccinationsRes.data as Vaccination[] })
+      }
+    } catch (error) {
+      console.error('Error loading user data:', error)
+    } finally {
+      dispatch({ type: 'SET_LOADING', payload: false })
+    }
+  }
+
+  const createAppointment = async (appointment: Omit<Appointment, 'id'>) => {
+    const response = await appointmentsApi.create(appointment)
+    if (response.success && response.data) {
+      dispatch({ type: 'ADD_APPOINTMENT', payload: response.data as Appointment })
+    }
+    return response
+  }
+
+  const updateAppointment = async (id: string, updates: Partial<Appointment>) => {
+    const response = await appointmentsApi.update(id, updates)
+    if (response.success && response.data) {
+      dispatch({ type: 'UPDATE_APPOINTMENT', payload: { id, updates } })
+    }
+    return response
+  }
+
+  const markNotificationRead = async (id: string) => {
+    const response = await notificationsApi.markRead(id)
+    if (response.success) {
+      dispatch({ type: 'MARK_NOTIFICATION_READ', payload: id })
+    }
+    return response
+  }
+
   return (
-    <AppContext.Provider value={{ state, dispatch }}>
+    <AppContext.Provider value={{
+      state,
+      dispatch,
+      loadUserData,
+      createAppointment,
+      updateAppointment,
+      markNotificationRead
+    }}>
       {children}
     </AppContext.Provider>
   )
