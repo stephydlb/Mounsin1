@@ -1,38 +1,35 @@
-# MongoDB Integration with Vercel - TODO
+# TODO: Verify User Flows and Implement 2FA
 
-## Setup
-- [x] Configure MongoDB Atlas cluster and create database
-- [x] Obtain MongoDB connection string (MONGODB_URI)
-- [x] Add MONGODB_URI to Vercel environment variables and local .env file
+## 1. Update Authentication Hook (src/hooks/useAuth.ts)
+- [ ] Replace mock data with real API calls for login
+- [ ] Add signup function using usersApi.create
+- [ ] Update login to check against DB users
 
-## Backend API
-- [x] Create `api/_db.ts` for MongoDB connection caching
-- [x] Create Mongoose models in `src/lib/models.ts`
-- [x] Create serverless API routes in `api/` for:
-  - users.ts
-  - doctors.ts
-  - appointments.ts
-  - medical-records.ts
-  - notifications.ts
-  - pharmacies.ts
-  - vaccinations.ts
+## 2. Add User Update API (api/users.ts)
+- [ ] Add PUT method to handle user profile updates
+- [ ] Ensure proper error handling
 
-## Frontend
-- [x] Add API client functions in `src/lib/api.ts`
-- [x] Update `src/contexts/AppContext.tsx` to use API calls instead of mock data
-- [x] Test API integration locally with mock userId and data
-- [x] Replace mock data usage in UI components with real data from context
+## 3. Update API Client (src/lib/api.ts)
+- [ ] Add update function to usersApi
 
-## Deployment
-- [x] Deploy to Vercel - Deployed to https://mounsin1-9by26asrm-stephydlbs-projects.vercel.app
-- [ ] Verify environment variables are set correctly
-- [ ] Test live API endpoints and frontend integration
+## 4. Update Profile Page (src/pages/profile/ProfilePage.tsx)
+- [ ] Add API call to persist profile changes
+- [ ] Add error handling for update failures
 
-## Optional
-- [ ] Add authentication integration to secure API routes
-- [ ] Add input validation and error handling in API routes
-- [ ] Add unit and integration tests for API and frontend
+## 5. Update Auth Form (src/components/AuthForm.tsx)
+- [ ] Add signup logic using new signup function
+- [ ] Handle both login and signup in handleSubmit
 
----
+## 6. Implement 2FA Setup (src/components/TwoFactorSetup.tsx)
+- [ ] Integrate Auth0 2FA enable flow
+- [ ] Add UI for 2FA setup and verification
 
-This checklist will guide the final steps to complete the MongoDB integration with Vercel for the medical app.
+## 7. Setup Auth0 Provider (src/main.tsx)
+- [ ] Import and wrap app with Auth0Provider
+
+## 8. Test User Flows
+- [ ] Test user creation (client account)
+- [ ] Test doctor account creation
+- [ ] Test login with real credentials
+- [ ] Test profile update persistence
+- [ ] Test 2FA setup and verification

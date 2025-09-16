@@ -40,6 +40,10 @@ export const usersApi = {
     method: 'POST',
     body: JSON.stringify(user),
   }),
+  update: (id: string, user: any) => apiCall(`/users?id=${id}`, {
+    method: 'PUT',
+    body: JSON.stringify(user),
+  }),
 }
 
 // Doctors API

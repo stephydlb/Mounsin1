@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useAppContext, User } from '@/contexts/AppContext';
+import { usersApi } from '@/lib/api';
 
 const ProfilePage: React.FC = () => {
   const { state, dispatch } = useAppContext();
@@ -14,10 +15,17 @@ const ProfilePage: React.FC = () => {
     setForm(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleSave = (e: React.FormEvent) => {
+  const handleSave = async (e: React.FormEvent) => {
     e.preventDefault();
-    dispatch({ type: 'SET_USER', payload: form });
-    setEdit(false);
+    if (user) {
+      const response = await usersApi.update(user.id, form);
+      if (response.success && response.data) {
+        dispatch({ type: 'SET_USER', payload: response.data as User });
+        setEdit(false);
+      } else {
+        alert('Failed to update profile: ' + response.error);
+      }
+    }
   };
 
   return (

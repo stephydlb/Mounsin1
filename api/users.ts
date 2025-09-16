@@ -24,8 +24,23 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         res.status(400).json({ success: false, error: error.message })
       }
       break
+    case 'PUT':
+      try {
+        const { id } = req.query
+        if (!id) {
+          return res.status(400).json({ success: false, error: 'User ID required' })
+        }
+        const user = await User.findByIdAndUpdate(id, req.body, { new: true })
+        if (!user) {
+          return res.status(404).json({ success: false, error: 'User not found' })
+        }
+        res.status(200).json({ success: true, data: user })
+      } catch (error) {
+        res.status(400).json({ success: false, error: error.message })
+      }
+      break
     default:
-      res.setHeader('Allow', ['GET', 'POST'])
+      res.setHeader('Allow', ['GET', 'POST', 'PUT'])
       res.status(405).end(`Method ${method} Not Allowed`)
   }
 }
