@@ -1,14 +1,15 @@
 import { Link, useLocation } from 'react-router-dom';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
-import { 
-  LayoutDashboard, 
-  Calendar, 
-  User, 
-  Pill, 
-  Syringe, 
+import {
+  LayoutDashboard,
+  Calendar,
+  User,
+  Pill,
+  Syringe,
   Settings,
-  Heart
+  Heart,
+  Instagram
 } from 'lucide-react';
 
 const navigation = [
@@ -68,15 +69,15 @@ export function Sidebar({ className }: SidebarProps) {
       <nav className="flex-1 px-4 py-6 space-y-2">
         {navigation.map((item) => {
           const isActive = location.pathname === item.href || location.pathname.startsWith(item.href + '/');
-          
+
           return (
             <Link key={item.name} to={item.href}>
               <Button
                 variant={isActive ? 'default' : 'ghost'}
                 className={cn(
                   'w-full justify-start px-4 py-3 h-auto',
-                  isActive 
-                    ? 'bg-green-600 hover:bg-green-700 text-white' 
+                  isActive
+                    ? 'bg-green-600 hover:bg-green-700 text-white'
                     : 'hover:bg-gray-100'
                 )}
               >
@@ -87,6 +88,19 @@ export function Sidebar({ className }: SidebarProps) {
           );
         })}
       </nav>
+
+      {/* Social Media */}
+      <div className="px-4 py-4 border-t">
+        <a
+          href="https://www.instagram.com/leggings_establishment?igsh=Mzl4bHcyemt0ZmY%3D&utm_source=qr"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center justify-center w-full p-2 text-gray-600 hover:text-pink-500 transition-colors"
+        >
+          <Instagram className="h-5 w-5 mr-2" />
+          Suivez-nous sur Instagram
+        </a>
+      </div>
     </div>
   );
 }
