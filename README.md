@@ -15,11 +15,19 @@ Install dependencies:
 npm install
 ```
 
-Run development server:
+Run development server (frontend only):
 
 ```bash
 npm run dev
 ```
+
+For full development with API routes, use Vercel CLI:
+
+```bash
+vercel dev
+```
+
+This starts a local server that serves both the frontend and the serverless API functions.
 
 Build for production:
 
